@@ -1,0 +1,25 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.3/sockjs.min.js"></script>
+
+<script type="text/javascript">
+    var sock = new SockJS('/hendrix-demo/messages');
+
+    sock.onopen = function(e) {
+        sock.send(
+            JSON.stringify({'hx_subscribe': 'noodly_messages'})
+        );
+    }
+
+    sock.onmessage = function(e) {
+        var message = JSON.parse(e.data);
+        console.log(message);
+        if (typeof message == "string") {
+            var div = document.getElementById('messages');
+            div.innerHTML = div.innerHTML + '<ul>' + message + '</ul>';
+        }
+    }
+
+</script>
+
+<li id="messages">
+    <h1>Messages</h1>
+</li>
