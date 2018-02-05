@@ -13,7 +13,8 @@ def my_noodles(request):
     @crosstown_traffic()
     def my_long_thing():
         for i in range(5):
+            print("another noodle on the python console")
             time.sleep(1)
-            hxdispatcher.send('noodly_messages', "Another noodle")
+            hxdispatcher.send(b'noodly_messages', "Another noodle")
 
     return render(request, 'noodles.html')

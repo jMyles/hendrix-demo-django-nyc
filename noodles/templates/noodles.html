@@ -3,7 +3,7 @@
 <script type="text/javascript">
          window.onload = function() {
 
-             socket = new WebSocket("ws://127.0.0.1:9000");
+             const socket = new WebSocket("ws://localhost:9000");
              socket.binaryType = "arraybuffer";
 
              socket.onopen = function () {
@@ -13,13 +13,17 @@
                  isopen = true;
              }
 
-             socket.onmessage = function (e) {
-                 var message = JSON.parse(e.data);
-                 console.log(message);
-                 if (typeof message == "string") {
+             socket.addEventListener('message', function (event) {
+                console.log("Message from server ", event.data);
+                 var message = JSON.parse(event.data);
+                 if (typeof event.data == "string") {
                      var div = document.getElementById('messages');
                      div.innerHTML = div.innerHTML + '<ul>' + message + '</ul>';
                  }
+             });
+
+             socket.onerror = function (error) {
+                 console.log(error.data);
              }
          }
 
