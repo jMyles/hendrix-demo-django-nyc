@@ -1,3 +1,4 @@
+from noodles.views import my_noodles
 """hendrix_demo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,6 +18,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'my_noodles', 'noodles.views.my_noodles'),
+    url(r'my_noodles', my_noodles),
     url(r'^admin/', include(admin.site.urls)),
 ]
