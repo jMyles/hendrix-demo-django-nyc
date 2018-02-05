@@ -1,22 +1,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.3/sockjs.min.js"></script>
 
 <script type="text/javascript">
-    var sock = new SockJS('/hendrix-demo/messages');
+         window.onload = function() {
 
-    sock.onopen = function(e) {
-        sock.send(
-            JSON.stringify({'hx_subscribe': 'noodly_messages'})
-        );
-    }
+             socket = new WebSocket("ws://127.0.0.1:9000");
+             socket.binaryType = "arraybuffer";
 
-    sock.onmessage = function(e) {
-        var message = JSON.parse(e.data);
-        console.log(message);
-        if (typeof message == "string") {
-            var div = document.getElementById('messages');
-            div.innerHTML = div.innerHTML + '<ul>' + message + '</ul>';
-        }
-    }
+             socket.onopen = function () {
+                 socket.send(
+                        JSON.stringify({'hx_subscribe': 'noodly_messages'})
+                    );
+                 isopen = true;
+             }
+
+             socket.onmessage = function (e) {
+                 var message = JSON.parse(e.data);
+                 console.log(message);
+                 if (typeof message == "string") {
+                     var div = document.getElementById('messages');
+                     div.innerHTML = div.innerHTML + '<ul>' + message + '</ul>';
+                 }
+             }
+         }
 
 </script>
 
